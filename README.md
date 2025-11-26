@@ -1,12 +1,12 @@
-# 🚀 KodesCRUxInfinity - AI Coding Assistant
+# 🚀 KodesCruxx - AI Coding Assistant
 
-![KodesCRUxInfinity](https://img.shields.io/badge/AI-Powered-blue)
+![KodesCruxx](https://img.shields.io/badge/AI-Powered-blue)
 ![Python](https://img.shields.io/badge/Python-3.12+-green)
 ![React](https://img.shields.io/badge/React-18+-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-teal)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-**KodesCRUxInfinity** is a comprehensive AI-powered coding assistant that helps developers and students learn, debug, generate, and analyze code efficiently. Built with modern technologies and powered by OpenAI's GPT models, featuring real-time collaborative coding with voice chat.
+**KodesCruxx** is a comprehensive AI-powered coding assistant that helps developers and students learn, debug, generate, and analyze code efficiently. Built with modern technologies and powered by OpenAI's GPT models, featuring real-time collaborative coding with voice chat.
 
 **Live Demo**: [Frontend](https://your-app.vercel.app) | [Backend API](https://your-backend.onrender.com)
 
@@ -178,7 +178,7 @@ npm run dev
 
 ### Deploy to Production
 
-KodesCRUxInfinity is optimized for deployment on:
+KodesCruxx is optimized for deployment on:
 - **Backend**: [Render.com](https://render.com) (Free tier available)
 - **Frontend**: [Vercel](https://vercel.com) (Free tier available)
 
@@ -457,8 +457,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📧 Contact & Support
 
-- **Developer**: Sujal Kumar
-- **LinkedIn**: [Connect on LinkedIn](https://www.linkedin.com/in/sujal-kumar-1b4b3a1b4/)
+- **Developer**: PALAK SONI
+- **LinkedIn**: [Connect on LinkedIn](https://www.linkedin.com/in/palak-soni-292280288/)
 - **Issues**: [GitHub Issues](https://github.com/yourusername/kodescru-xxx-main/issues)
 - **Documentation**: See `/docs` endpoint for API documentation
 
@@ -466,4 +466,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 **Built with ❤️ using FastAPI, React, WebSockets, and OpenAI**
 
-**Live Demo**: [Try KodesCRUxInfinity](https://your-app.vercel.app)
+**Live Demo**: [Try KodesCruxx](https://your-app.vercel.app)

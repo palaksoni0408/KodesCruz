@@ -15,7 +15,6 @@
   pointer-events: none;
 }
 
-.rain-container::before,
 .rain-container::after {
   content: "CLICK & HOLD TO CREATE LIGHTNING";
   font-family: Arial, Helvetica, serif;
@@ -29,13 +28,8 @@
   pointer-events: none;
 }
 
-.rain-container::before {
-  content: "HOVER SCREEN TO CHANGE WIND SPEED";
-  top: 18px;
-  bottom: auto;
-}
 
-.rain-container:active::before,
+
 .rain-container:active::after {
   color: transparent;
   transition: all 0.5s ease 0s;

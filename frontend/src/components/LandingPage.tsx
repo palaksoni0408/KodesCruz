@@ -117,7 +117,7 @@ export default function LandingPage() {
                 <footer className="border-t border-white/10 bg-black/20 backdrop-blur-lg py-12">
                     <div className="container mx-auto px-4 text-center">
                         <p className="text-gray-400">
-                            © 2025 KodesCRUxInfinity. Built with <span className="text-red-500">♥</span> by Sujal Kumar.
+                            © 2025 KodesCruxx. Built with <span className="text-red-500">♥</span> by <a href="https://www.linkedin.com/in/palak-soni-292280288/" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 transition-colors">PALAK SONI</a>.
                         </p>
                     </div>
                 </footer>
