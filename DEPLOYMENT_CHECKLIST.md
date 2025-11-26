@@ -44,8 +44,8 @@ Use this checklist to ensure a smooth deployment to Vercel and Render.
   - [ ] Build command: `npm run build`
   - [ ] Output directory: `dist`
 - [ ] Add environment variables:
-  - [ ] `VITE_API_URL=https://your-backend.onrender.com`
-  - [ ] `VITE_WS_URL=wss://your-backend.onrender.com`
+  - [ ] `VITE_API_URL` set to `https://kodescruxx-backend.onrender.com`
+  - [ ] `VITE_WS_URL` set to `wss://kodescruxx-backend.onrender.com`
   - [ ] `VITE_ASSET_BASE_URL=https://your-backend.onrender.com`
 - [ ] Deploy and wait for completion
 - [ ] Copy frontend URL (e.g., `https://your-app.vercel.app`)

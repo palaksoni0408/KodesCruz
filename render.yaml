@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: kodescru-backend
+    name: kodescruxx-backend
     env: python
     region: oregon
     plan: free
@@ -22,7 +22,7 @@ services:
       - key: LOG_LEVEL
         value: INFO
       - key: DATABASE_URL
-        value: sqlite:///./kodescru.db
+        value: sqlite:///./kodescruxx.db
       - key: ALLOWED_ORIGINS
         value: https://your-frontend.vercel.app
         sync: false

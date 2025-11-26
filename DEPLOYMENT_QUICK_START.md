@@ -5,7 +5,7 @@
 After deploying both services, you'll have:
 
 ### 1. Backend URL (Render.com)
-**Your Backend**: `https://kodescruxxx.onrender.com`
+**Your Backend**: `https://kodescruxx-backend.onrender.com`
 
 This is already deployed! ✅
 
@@ -29,7 +29,7 @@ This will be created when you deploy to Vercel.
 ## 🔄 How to Get Both URLs
 
 ### Step 1: Backend (Already Done! ✅)
-- **URL**: `https://kodescruxxx.onrender.com`
+- **URL**: `https://kodescruxx-backend.onrender.com`
 - **Status**: Deployed and running
 - **Location**: Render Dashboard → Your Service → URL
 
@@ -45,8 +45,8 @@ This will be created when you deploy to Vercel.
    - Output Directory: `dist`
 5. **Add Environment Variables:**
    ```
-   VITE_API_URL=https://kodescruxxx.onrender.com
-   VITE_WS_URL=wss://kodescruxxx.onrender.com
+   VITE_API_URL=https://kodescruxx-backend.onrender.com
+   VITE_WS_URL=wss://kodescruxx-backend.onrender.com
    ```
 6. **Click "Deploy"**
 7. **Wait 1-2 minutes**
@@ -68,11 +68,11 @@ After getting your frontend URL (e.g., `https://my-app.vercel.app`):
 
 ## ✅ Final Checklist
 
-- [ ] Backend deployed on Render: `https://kodescruxxx.onrender.com`
+- [ ] Backend deployed on Render: `https://kodescruxx-backend.onrender.com`
 - [ ] Frontend deployed on Vercel: `https://your-app.vercel.app`
 - [ ] Environment variables set in Vercel:
-  - [ ] `VITE_API_URL` = `https://kodescruxxx.onrender.com`
-  - [ ] `VITE_WS_URL` = `wss://kodescruxxx.onrender.com`
+  - [ ] `VITE_API_URL` = `https://kodescruxx-backend.onrender.com`
+  - [ ] `VITE_WS_URL` = `wss://kodescruxx-backend.onrender.com`
 - [ ] `ALLOWED_ORIGINS` updated in Render with your Vercel URL
 - [ ] Test both URLs are accessible
 - [ ] Test frontend can connect to backend
@@ -83,7 +83,7 @@ After getting your frontend URL (e.g., `https://my-app.vercel.app`):
 
 ### Test Backend:
 ```bash
-curl https://kodescruxxx.onrender.com/health
+curl https://kodescruxx-backend.onrender.com/health
 ```
 Should return: `{"status": "ok", ...}`
 
@@ -96,13 +96,13 @@ Should return: `{"status": "ok", ...}`
 1. Open frontend in browser
 2. Open DevTools → Network tab
 3. Use any feature (e.g., Code Explanation)
-4. Check that API calls go to `https://kodescruxxx.onrender.com`
+4. Check that API calls go to `https://kodescruxx-backend.onrender.com`
 
 ---
 
 ## 📝 Summary
 
-**Backend URL**: `https://kodescruxxx.onrender.com` ✅ (Already deployed)
+**Backend URL**: `https://kodescruxx-backend.onrender.com` ✅ (Already deployed)
 
 **Frontend URL**: `https://your-project-name.vercel.app` (Deploy to get this)
 
