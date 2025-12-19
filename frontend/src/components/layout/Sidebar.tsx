@@ -58,7 +58,7 @@ export default function Sidebar({ features, activeFeature, setActiveFeature, onF
                 </div>
 
                 {/* Navigation Links */}
-                <div className="bg-gradient-to-br from-purple-900/20 to-transparent backdrop-blur-lg rounded-xl p-2 space-y-1 border border-purple-500/20 flex-1 overflow-y-auto custom-scrollbar shadow-xl">
+                <div className="bg-slate-900/50 backdrop-blur-lg rounded-xl p-2 space-y-1 border border-white/10 flex-1 overflow-y-auto custom-scrollbar shadow-xl">
                     {features.map((feature: any) => {
                         const isActive = activeFeature === feature.id;
                         const Icon = feature.icon;
@@ -68,13 +68,13 @@ export default function Sidebar({ features, activeFeature, setActiveFeature, onF
                                 key={feature.id}
                                 onClick={() => handleFeatureClick(feature.id)}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-sm group ${isActive
-                                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50 translate-x-1'
+                                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20 translate-x-1'
                                     : 'text-gray-300 hover:bg-white/5 hover:text-white hover:translate-x-1'
                                     }`}
                             >
                                 <Icon
                                     size={20}
-                                    className={`flex-shrink-0 transition-all duration-200 ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-purple-400'
+                                    className={`flex-shrink-0 transition-all duration-200 ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-blue-400'
                                         }`}
                                 />
                                 <span className="font-medium truncate">{feature.label}</span>

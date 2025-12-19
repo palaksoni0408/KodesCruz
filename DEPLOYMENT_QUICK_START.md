@@ -29,9 +29,11 @@ GROQ_API_KEY=gsk_your_key_here
 MODEL_NAME=llama-3.3-70b-versatile
 TEMPERATURE=0.7
 MAX_TOKENS=2000
-ALLOWED_ORIGINS=https://your-app.vercel.app
+ALLOWED_ORIGINS=https://kodes-cruxx.vercel.app
 DEBUG=False
 LOG_LEVEL=INFO
+
+
 ```
 
 📋 Copy your backend URL: `https://your-backend.onrender.com`
@@ -52,7 +54,7 @@ LOG_LEVEL=INFO
    ```
 4. **Deploy!**
 
-📋 Copy your frontend URL: `https://your-app.vercel.app`
+📋 Copy your frontend URL: `https://kodes-cruxx.vercel.app`
 
 ---
 
@@ -60,7 +62,7 @@ LOG_LEVEL=INFO
 
 **Update Backend CORS:**
 1. Go to Render → Environment
-2. Set `ALLOWED_ORIGINS` = `https://your-app.vercel.app`
+2. Set `ALLOWED_ORIGINS` = `https://kodes-cruxx.vercel.app`
 3. Save (auto-redeploys)
 
 ---
@@ -68,7 +70,7 @@ LOG_LEVEL=INFO
 ## ✅ Test It
 
 - **Backend Health:** `https://your-backend.onrender.com/health`
-- **Frontend:** `https://your-app.vercel.app`
+- **Frontend:** `https://kodes-cruxx.vercel.app`
 - **API Docs:** `https://your-backend.onrender.com/docs`
 
 ---

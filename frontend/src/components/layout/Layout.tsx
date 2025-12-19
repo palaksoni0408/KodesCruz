@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import RainBackground from '../RainBackground';
 
 interface LayoutProps {
     children: ReactNode;
@@ -7,10 +8,8 @@ interface LayoutProps {
 
 export default function Layout({ children, className = '' }: LayoutProps) {
     return (
-        <div className={`min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 ${className}`}>
-            {/* Animated background grid */}
-            <div className="fixed inset-0 bg-grid-white/[0.02] bg-[size:50px_50px] pointer-events-none" />
-            <div className="fixed inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent pointer-events-none" />
+        <div className={`min-h-screen bg-black ${className}`}>
+            <RainBackground />
 
             {/* Content */}
             <div className="relative z-10 min-h-screen flex flex-col">

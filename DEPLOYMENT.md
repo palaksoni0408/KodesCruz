@@ -41,7 +41,7 @@ git push origin main
    - `MODEL_NAME` = `llama-3.3-70b-versatile` (optional)
    - `TEMPERATURE` = `0.7` (optional)
    - `MAX_TOKENS` = `2000` (optional)
-   - `ALLOWED_ORIGINS` = Your Vercel frontend URL (e.g., `https://your-app.vercel.app`)
+   - `ALLOWED_ORIGINS` = Your Vercel frontend URL (e.g., `https://kodes-cruxx.vercel.app`)
    - `DEBUG` = `False`
    - `LOG_LEVEL` = `INFO`
 
@@ -65,7 +65,7 @@ After deploying the frontend (Step 5), update the `ALLOWED_ORIGINS` environment 
 
 1. Go to Render Dashboard → Your Service → Environment
 2. Find `ALLOWED_ORIGINS` variable
-3. Update it to: `https://your-frontend.vercel.app` (replace with your actual Vercel URL)
+3. Update it to: `https://kodes-cruxx.vercel.app`
 4. Save and the service will automatically redeploy
 
 ---
@@ -147,10 +147,10 @@ vercel env add VITE_ASSET_BASE_URL
 7. **Wait for deployment** (usually 1-2 minutes)
 
 8. **Copy your frontend URL** - Vercel will show you the deployment URL:
-   - Production URL: `https://your-project-name.vercel.app`
+   - Production URL: `https://kodes-cruxx.vercel.app`
    - Or your custom domain if configured
    
-   **Example**: `https://kodescru-frontend.vercel.app`
+   **Example**: `https://kodes-cruxx.vercel.app`
 
 9. **Important**: After getting your frontend URL, go back to Render and update `ALLOWED_ORIGINS` to include your Vercel URL
 
@@ -165,7 +165,7 @@ After getting your Vercel URL, update the `ALLOWED_ORIGINS` in Render:
 1. Go to Render Dashboard → Your Service → Environment
 2. Update `ALLOWED_ORIGINS`:
    ```
-   https://your-frontend.vercel.app
+   https://kodes-cruxx.vercel.app
    ```
 3. Save and redeploy
 
@@ -201,7 +201,7 @@ If you need to change backend URL:
 | `MODEL_NAME` | Groq model to use | `llama-3.3-70b-versatile` |
 | `TEMPERATURE` | Model temperature | `0.7` |
 | `MAX_TOKENS` | Max response tokens | `2000` |
-| `ALLOWED_ORIGINS` | CORS allowed origins | `https://app.vercel.app` |
+| `ALLOWED_ORIGINS` | CORS allowed origins | `https://kodes-cruxx.vercel.app` |
 | `DEBUG` | Debug mode | `False` |
 | `LOG_LEVEL` | Logging level | `INFO` |
 | `PORT` | Server port (auto-set by Render) | `10000` |
@@ -254,7 +254,7 @@ If you need to change backend URL:
 
 **SSL Certificate Error (ERR_CERT_AUTHORITY_INVALID):**
 - This usually happens on Vercel preview deployments
-- **Solution 1**: Use the production domain (e.g., `your-app.vercel.app`) instead of preview URLs
+- **Solution 1**: Use the production domain (e.g., `kodes-cruxx.vercel.app`) instead of preview URLs
 - **Solution 2**: If using a custom domain, ensure it's properly configured in Vercel:
   1. Go to Vercel Dashboard → Your Project → Settings → Domains
   2. Add your custom domain

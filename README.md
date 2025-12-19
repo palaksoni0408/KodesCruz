@@ -8,7 +8,7 @@
 
 **KodesCruz** is a comprehensive AI-powered coding assistant that helps developers and students learn, debug, generate, and analyze code efficiently. Built with modern technologies and powered by Groq's lightning-fast AI models, featuring real-time collaborative coding with voice chat.
 
-**Live Demo**: [Frontend](https://your-app.vercel.app) | [Backend API](https://your-backend.onrender.com)
+**Live Demo**: [Frontend](https://kodes-cruxx.vercel.app) | [Backend API](https://kodescruz.onrender.com)
 
 ---
 
@@ -202,7 +202,7 @@ KodesCruxx is optimized for deployment on:
 OPENAI_API_KEY=sk-your-key-here
 MODEL_NAME=gpt-4o-mini
 SECRET_KEY=your-secure-random-secret-key
-ALLOWED_ORIGINS=https://your-frontend.vercel.app
+ALLOWED_ORIGINS=https://kodes-cruxx.vercel.app
 DATABASE_URL=sqlite:///./kodescru.db
 DEBUG=False
 LOG_LEVEL=INFO
@@ -466,4 +466,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 **Built with ❤️ using FastAPI, React, WebSockets, and OpenAI**
 
-**Live Demo**: [Try KodesCruxx](https://your-app.vercel.app)
+**Live Demo**: [Try KodesCruz](https://kodes-cruxx.vercel.app)

@@ -2,7 +2,7 @@
 
 ## Your URLs
 - **Backend**: `https://kodescrux.onrender.com` ✅ (Running)
-- **Frontend**: `https://kodes-cru.vercel.app/` ✅ (Deployed)
+- **Frontend**: `https://kodes-cruxx.vercel.app/` ✅ (Deployed)
 
 ---
 
@@ -46,12 +46,12 @@
 4. Find `ALLOWED_ORIGINS` variable
 5. Set the value to:
    ```
-   https://kodes-cru.vercel.app
+   https://kodes-cruxx.vercel.app
    ```
    ⚠️ **Important**: 
    - No trailing slash
    - No `http://` (must be `https://`)
-   - Just the domain: `https://kodes-cru.vercel.app`
+   - Just the domain: `https://kodes-cruxx.vercel.app`
 
 6. Click **Save Changes**
    - Render will automatically redeploy (wait 2-3 minutes)
@@ -75,7 +75,7 @@ https://kodescrux.onrender.com/health
 **Note**: First request after hibernation may take 30-60 seconds (Render free tier)
 
 ### Test Frontend:
-1. Visit: `https://kodes-cru.vercel.app/`
+1. Visit: `https://kodes-cruxx.vercel.app/`
 2. Open Browser Console (F12)
 3. Check for errors:
    - ❌ **Should NOT see**: "Cannot connect to backend server"
@@ -96,7 +96,7 @@ https://kodescrux.onrender.com/health
 
 ### Issue: CORS error in browser console
 **Solution:**
-- Verify `ALLOWED_ORIGINS` in Render is exactly: `https://kodes-cru.vercel.app`
+- Verify `ALLOWED_ORIGINS` in Render is exactly: `https://kodes-cruxx.vercel.app`
 - No trailing slash, no `http://`
 - Wait for Render to finish redeploying (check Render logs)
 
@@ -112,7 +112,7 @@ https://kodescrux.onrender.com/health
 
 - [ ] `VITE_API_URL=https://kodescrux.onrender.com` set in Vercel
 - [ ] Vercel frontend redeployed after adding variable
-- [ ] `ALLOWED_ORIGINS=https://kodes-cru.vercel.app` set in Render
+- [ ] `ALLOWED_ORIGINS=https://kodes-cruxx.vercel.app` set in Render
 - [ ] Render service redeployed after updating CORS
 - [ ] Backend `/health` endpoint returns 200 OK
 - [ ] Frontend loads without connection errors

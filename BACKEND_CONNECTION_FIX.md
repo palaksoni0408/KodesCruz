@@ -24,9 +24,9 @@ Frontend cannot connect to backend at `https://kodescrux.onrender.com` (503 erro
 2. Verify these are set:
    ```
    OPENAI_API_KEY=sk-... (your new API key)
-   ALLOWED_ORIGINS=https://your-vercel-frontend.vercel.app
+   ALLOWED_ORIGINS=https://kodes-cruxx.vercel.app
    ```
-   ⚠️ **Important**: Replace `your-vercel-frontend.vercel.app` with your actual Vercel URL
+   ⚠️ **Important**: Replace `your-vercel-frontend.vercel.app` with `kodes-cruxx.vercel.app`
 
 3. If you changed `OPENAI_API_KEY`:
    - Render should auto-redeploy
@@ -89,7 +89,7 @@ https://kodescrux.onrender.com/wake
 1. In Render → Your Service → Environment
 2. Set `ALLOWED_ORIGINS` to include your Vercel URL:
    ```
-   https://your-frontend-name.vercel.app
+   https://kodes-cruxx.vercel.app
    ```
    (Get your Vercel URL from Vercel Dashboard → Project → Settings → Domains)
 

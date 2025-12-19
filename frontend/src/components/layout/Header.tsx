@@ -15,7 +15,7 @@ export default function Header({ backendConnected, onBackToLanding }: HeaderProp
             {onBackToLanding && (
                 <button
                     onClick={onBackToLanding}
-                    className="absolute left-0 top-0 inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-purple-600/20 to-pink-600/20 hover:from-purple-600/30 hover:to-pink-600/30 border border-purple-500/50 rounded-lg text-purple-300 hover:text-purple-200 transition-all text-sm"
+                    className="absolute left-0 top-0 inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-gray-300 hover:text-white transition-all text-sm backdrop-blur-sm"
                 >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />

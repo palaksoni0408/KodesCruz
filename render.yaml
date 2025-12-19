@@ -24,7 +24,7 @@ services:
       - key: DATABASE_URL
         value: sqlite:///./kodescruz.db
       - key: ALLOWED_ORIGINS
-        value: https://your-frontend.vercel.app
+        value: https://kodes-cruxx.vercel.app
         sync: false
 
     healthCheckPath: /health

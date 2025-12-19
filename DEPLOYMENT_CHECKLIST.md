@@ -26,7 +26,7 @@ Use this checklist to ensure a smooth deployment to Vercel and Render.
   - [ ] `SECRET_KEY` (auto-generate or set)
   - [ ] `MODEL_NAME=llama-3.3-70b-versatile`
   - [ ] `DATABASE_URL=sqlite:///./kodescru.db`
-  - [ ] `ALLOWED_ORIGINS=https://your-frontend.vercel.app` (update after frontend deployment)
+  - [ ] `ALLOWED_ORIGINS=https://kodes-cruxx.vercel.app` (update after frontend deployment)
   - [ ] `DEBUG=False`
   - [ ] `LOG_LEVEL=INFO`
 - [ ] Deploy and wait for completion
@@ -48,7 +48,7 @@ Use this checklist to ensure a smooth deployment to Vercel and Render.
   - [ ] `VITE_WS_URL` set to `wss://kodescruxx-backend.onrender.com`
   - [ ] `VITE_ASSET_BASE_URL=https://your-backend.onrender.com`
 - [ ] Deploy and wait for completion
-- [ ] Copy frontend URL (e.g., `https://your-app.vercel.app`)
+- [ ] Copy frontend URL (e.g., `https://kodes-cruxx.vercel.app`)
 - [ ] Test frontend loads correctly
 
 ## 🔄 Post-Deployment
@@ -110,6 +110,6 @@ Use this checklist to ensure a smooth deployment to Vercel and Render.
 **After completing this checklist, your app should be live! 🎉**
 
 Production URLs:
-- Frontend: `https://your-app.vercel.app`
+- Frontend: `https://kodes-cruxx.vercel.app`
 - Backend: `https://your-backend.onrender.com`
 - API Docs: `https://your-backend.onrender.com/docs`
