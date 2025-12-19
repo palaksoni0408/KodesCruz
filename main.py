@@ -1,22 +1,18 @@
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect, Depends, status, BackgroundTasks
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import StreamingResponse
-from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel, Field
 from typing import Optional
 import logging
 import json
 import os
 from pathlib import Path
-from datetime import timedelta
 from sqlalchemy.orm import Session
 
 import models
-from models import User
 from database import get_db
 
-from auth import get_current_user, create_access_token, verify_password, get_password_hash
 
 from ai_engine import (
     explain_code,
@@ -49,9 +45,6 @@ from ai_engine import (
 from code_executor import executor, SUPPORTED_LANGUAGES
 from websocket_handler import connection_manager
 from room_manager import room_manager
-from database import get_db
-import models
-import auth
 
 logger = logging.getLogger(__name__)
 
@@ -123,71 +116,6 @@ class CreateRoomRequest(BaseModel):
     max_users: int = Field(default=10, ge=2, le=50, description="Maximum users")
     is_public: bool = Field(default=True, description="Public room")
 
-class UserCreate(BaseModel):
-    username: str
-    password: str
-    email: Optional[str] = None
-
-class LogActivityRequest(BaseModel):
-    feature: str
-    language: Optional[str] = None
-    success: bool = True
-    duration_ms: Optional[int] = None
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-
-class UserResponse(BaseModel):
-    id: str
-    username: str
-    email: Optional[str] = None
-    
-    class Config:
-        orm_mode = True
-
-# Auth Endpoints
-@app.post("/register", response_model=UserResponse)
-def register(user: UserCreate, db: Session = Depends(get_db)):
-    db_user = db.query(models.User).filter(models.User.username == user.username).first()
-    if db_user:
-        raise HTTPException(status_code=400, detail="Username already registered")
-    
-    if user.email:
-        db_email = db.query(models.User).filter(models.User.email == user.email).first()
-        if db_email:
-            raise HTTPException(status_code=400, detail="Email already registered")
-    
-    hashed_password = auth.get_password_hash(user.password)
-    new_user = models.User(
-        id=room_manager.generate_user_id(),
-        username=user.username,
-        email=user.email,
-        hashed_password=hashed_password
-    )
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
-    return new_user
-
-@app.post("/token", response_model=Token)
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    user = db.query(models.User).filter(models.User.username == form_data.username).first()
-    if not user or not auth.verify_password(form_data.password, user.hashed_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    access_token_expires = timedelta(minutes=auth.ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = auth.create_access_token(
-        data={"sub": user.username}, expires_delta=access_token_expires
-    )
-    return {"access_token": access_token, "token_type": "bearer"}
-
-@app.get("/users/me", response_model=UserResponse)
-async def read_users_me(current_user: models.User = Depends(auth.get_current_user)):
-    return current_user
 
 @app.post("/explain")
 def explain(req: RequestModel):
@@ -573,183 +501,4 @@ async def shutdown_event():
     """Cleanup on application shutdown"""
     await executor.close()
     logger.info("Application shutdown complete")
-
-# Dashboard Endpoints
-@app.get("/dashboard/stats")
-async def get_dashboard_stats(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    """Get user dashboard statistics"""
-    from sqlalchemy import func
-    
-    # Total activities count
-    total_uses = db.query(models.UserActivity).filter(
-        models.UserActivity.user_id == current_user.id
-    ).count()
-    
-    # Unique features used
-    features_used = db.query(func.count(func.distinct(models.UserActivity.feature))).filter(
-        models.UserActivity.user_id == current_user.id
-    ).scalar() or 0
-    
-    # Success rate
-    total_activities = db.query(models.UserActivity).filter(
-        models.UserActivity.user_id == current_user.id
-    ).count()
-    
-    successful = db.query(models.UserActivity).filter(
-        models.UserActivity.user_id == current_user.id,
-        models.UserActivity.success == True
-    ).count()
-    
-    success_rate = (successful / total_activities * 100) if total_activities > 0 else 100
-    
-    # Average duration
-    avg_duration = db.query(func.avg(models.UserActivity.duration_ms)).filter(
-        models.UserActivity.user_id == current_user.id,
-        models.UserActivity.duration_ms.isnot(None)
-    ).scalar() or 0
-    
-    return {
-        "total_uses": total_uses,
-        "features_used": features_used,
-        "success_rate": round(success_rate, 1),
-        "avg_duration_ms": round(avg_duration, 0) if avg_duration else 0
-    }
-
-@app.get("/dashboard/recent")
-async def get_recent_activity(
-    limit: int = 10,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Get recent user activity"""
-    activities = db.query(models.UserActivity).filter(
-        models.UserActivity.user_id == current_user.id
-    ).order_by(models.UserActivity.timestamp.desc()).limit(limit).all()
-    
-    return {
-        "activities": [
-            {
-                "id": activity.id,
-                "feature": activity.feature,
-                "language": activity.language,
-                "success": activity.success,
-                "timestamp": activity.timestamp.isoformat(),
-                "duration_ms": activity.duration_ms
-            }
-            for activity in activities
-        ]
-    }
-
-@app.post("/activity/log")
-async def log_activity(
-    activity_data: LogActivityRequest,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Log user activity"""
-    import uuid
-    
-    activity = models.UserActivity(
-        id=str(uuid.uuid4()),
-        user_id=current_user.id,
-        feature=activity_data.feature,
-        language=activity_data.language,
-        success=activity_data.success,
-        duration_ms=activity_data.duration_ms
-    )
-    
-    db.add(activity)
-    db.commit()
-    
-    return {"status": "logged"}
-
-# Workflow Endpoints
-
-@app.post("/workflows")
-async def create_workflow(
-    name: str,
-    nodes: str,
-    edges: str,
-    description: str = None,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    import uuid
-    workflow = models.Workflow(
-        id=str(uuid.uuid4()),
-        user_id=current_user.id,
-        name=name,
-        description=description,
-        nodes=nodes,
-        edges=edges
-    )
-    db.add(workflow)
-    db.commit()
-    db.refresh(workflow)
-    return workflow
-
-@app.get("/workflows")
-async def get_workflows(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    return db.query(models.Workflow).filter(models.Workflow.user_id == current_user.id).all()
-
-@app.get("/workflows/{workflow_id}")
-async def get_workflow(workflow_id: str, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    workflow = db.query(models.Workflow).filter(
-        models.Workflow.id == workflow_id,
-        models.Workflow.user_id == current_user.id
-    ).first()
-    if not workflow:
-        raise HTTPException(status_code=404, detail="Workflow not found")
-    return workflow
-
-@app.post("/workflows/{workflow_id}/run")
-async def run_workflow(
-    workflow_id: str,
-    background_tasks: BackgroundTasks,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    import uuid
-    from workflow_engine import WorkflowEngine
-    
-    workflow = db.query(models.Workflow).filter(
-        models.Workflow.id == workflow_id,
-        models.Workflow.user_id == current_user.id
-    ).first()
-    
-    if not workflow:
-        raise HTTPException(status_code=404, detail="Workflow not found")
-    
-    execution_id = str(uuid.uuid4())
-    execution = models.WorkflowExecution(
-        id=execution_id,
-        workflow_id=workflow.id,
-        status="pending"
-    )
-    db.add(execution)
-    db.commit()
-    
-    engine = WorkflowEngine(db)
-    background_tasks.add_task(engine.execute_workflow, execution_id)
-    
-    return {"execution_id": execution_id, "status": "pending"}
-
-@app.get("/workflows/executions/{execution_id}")
-async def get_execution(execution_id: str, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    execution = db.query(models.WorkflowExecution).join(models.Workflow).filter(
-        models.WorkflowExecution.id == execution_id,
-        models.Workflow.user_id == current_user.id
-    ).first()
-    
-    if not execution:
-        raise HTTPException(status_code=404, detail="Execution not found")
-    
-    return {
-        "id": execution.id,
-        "status": execution.status,
-        "results": execution.results,
-        "started_at": execution.started_at,
-        "completed_at": execution.completed_at,
-        "error": execution.error
-    }
 

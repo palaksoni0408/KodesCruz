@@ -9,7 +9,7 @@ This guide will help you deploy KodesCRUxxx to Render.com (Backend) and Vercel (
 - GitHub account
 - Render.com account
 - Vercel account
-- OpenAI API key
+- Groq API key (get it from https://console.groq.com/keys)
 
 ---
 
@@ -37,10 +37,10 @@ git push origin main
    - **Plan**: Choose Free or Starter plan
 
 5. **Add Environment Variables:**
-   - `OPENAI_API_KEY` = Your OpenAI API key
-   - `MODEL_NAME` = `gpt-4o-mini` (optional)
+   - `GROQ_API_KEY` = Your Groq API key (from https://console.groq.com/keys)
+   - `MODEL_NAME` = `llama-3.3-70b-versatile` (optional)
    - `TEMPERATURE` = `0.7` (optional)
-   - `MAX_TOKENS` = `1000` (optional)
+   - `MAX_TOKENS` = `2000` (optional)
    - `ALLOWED_ORIGINS` = Your Vercel frontend URL (e.g., `https://your-app.vercel.app`)
    - `DEBUG` = `False`
    - `LOG_LEVEL` = `INFO`
@@ -197,10 +197,10 @@ If you need to change backend URL:
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `OPENAI_API_KEY` | Your OpenAI API key | `sk-...` |
-| `MODEL_NAME` | GPT model to use | `gpt-4o-mini` |
+| `GROQ_API_KEY` | Your Groq API key | `gsk_...` |
+| `MODEL_NAME` | Groq model to use | `llama-3.3-70b-versatile` |
 | `TEMPERATURE` | Model temperature | `0.7` |
-| `MAX_TOKENS` | Max response tokens | `1000` |
+| `MAX_TOKENS` | Max response tokens | `2000` |
 | `ALLOWED_ORIGINS` | CORS allowed origins | `https://app.vercel.app` |
 | `DEBUG` | Debug mode | `False` |
 | `LOG_LEVEL` | Logging level | `INFO` |

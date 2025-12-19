@@ -1,12 +1,12 @@
-# 🚀 KodesCruxx - AI Coding Assistant
+# 🚀 KodesCruz - AI Coding Assistant
 
-![KodesCruxx](https://img.shields.io/badge/AI-Powered-blue)
+![KodesCruz](https://img.shields.io/badge/AI-Powered-blue)
 ![Python](https://img.shields.io/badge/Python-3.12+-green)
 ![React](https://img.shields.io/badge/React-18+-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-teal)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-**KodesCruxx** is a comprehensive AI-powered coding assistant that helps developers and students learn, debug, generate, and analyze code efficiently. Built with modern technologies and powered by OpenAI's GPT models, featuring real-time collaborative coding with voice chat.
+**KodesCruz** is a comprehensive AI-powered coding assistant that helps developers and students learn, debug, generate, and analyze code efficiently. Built with modern technologies and powered by Groq's lightning-fast AI models, featuring real-time collaborative coding with voice chat.
 
 **Live Demo**: [Frontend](https://your-app.vercel.app) | [Backend API](https://your-backend.onrender.com)
 

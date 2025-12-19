@@ -111,13 +111,14 @@ class RoomManager:
             db_room = models.Room(
                 id=room_id,
                 name=name,
-                host_id=host_id,
+                host_name=host_name,
                 language=language,
                 code=code,
                 max_users=max_users,
                 is_public=is_public,
                 created_at=datetime.utcnow()
             )
+
             db.add(db_room)
             db.commit()
             db.refresh(db_room)
@@ -158,7 +159,7 @@ class RoomManager:
         return {
             "id": db_room.id,
             "name": db_room.name,
-            "host_id": db_room.host_id,
+            "host_name": db_room.host_name,
             "language": db_room.language,
             "code": db_room.code,
             "created_at": db_room.created_at.isoformat(),
@@ -167,6 +168,7 @@ class RoomManager:
             "users": [user.to_dict() for user in room_state.users.values()],
             "user_count": len(room_state.users)
         }
+
     
     def delete_room(self, room_id: str) -> bool:
         """Delete a room from DB and memory"""

@@ -1,13 +1,14 @@
 """
-AI Engine Module for KodesCRUxxx
-Handles all AI/LLM interactions using OpenAI
+AI Engine Module for KodesCruz
+Handles all AI/LLM interactions using Groq
 """
 
 import logging
 from typing import Optional, AsyncIterator
 
-from langchain_openai import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
+from langchain_groq import ChatGroq
+from langchain_core.prompts import ChatPromptTemplate
+
 
 from config import settings
 
@@ -15,14 +16,13 @@ from config import settings
 logging.basicConfig(level=settings.LOG_LEVEL)
 logger = logging.getLogger(__name__)
 
-# Initialize OpenAI LLM
+# Initialize Groq LLM
 try:
-    llm = ChatOpenAI(
-        api_key=settings.OPENAI_API_KEY,
-        model=settings.MODEL_NAME,
+    llm = ChatGroq(
+        groq_api_key=settings.GROQ_API_KEY,
+        model_name=settings.MODEL_NAME,
         temperature=settings.TEMPERATURE,
         max_tokens=settings.MAX_TOKENS,
-        request_timeout=30,
         streaming=True
     )
     logger.info(f"✅ LLM initialized with model: {settings.MODEL_NAME}")
@@ -42,7 +42,7 @@ def safe_llm_invoke(chain, params: dict) -> str:
         str: LLM response or error message
     """
     if llm is None:
-        return "❌ Error: OpenAI API not configured. Please check your API key."
+        return "❌ Error: Groq API not configured. Please check your API key."
     
     try:
         response = chain.invoke(params)
@@ -415,7 +415,7 @@ def check_llm_health() -> dict:
 async def stream_explain_code(language: str, topic: str, level: str, code: str = "") -> AsyncIterator[str]:
     """Stream explanation of code or topic"""
     if llm is None:
-        yield "❌ Error: OpenAI API not configured. Please check your API key."
+        yield "❌ Error: Groq API not configured. Please check your API key."
         return
     
     try:

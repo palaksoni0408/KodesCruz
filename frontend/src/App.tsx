@@ -1,8 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Code2, Bug, Sparkles, ArrowRightLeft, BarChart3, Play, FileCode, Lightbulb, Map, Users, Terminal, Shield, FlaskConical, Wrench } from 'lucide-react';
 import { apiService } from './services/api';
-import { AuthProvider, useAuth } from './context/AuthContext';
-import LandingPage from './components/LandingPage';
 import CollaborativeRoom from './components/CollaborativeRoom';
 import Layout from './components/layout/Layout';
 import Header from './components/layout/Header';
@@ -23,8 +21,7 @@ import Playground from './features/Playground';
 import CodeReview from './features/CodeReview';
 import TestGenerator from './features/TestGenerator';
 import RefactorCode from './features/RefactorCode';
-import Dashboard from './components/Dashboard';
-import WorkflowBuilder from './components/workflow/WorkflowBuilder';
+import LandingPage from './components/LandingPage';
 
 type Feature =
   | 'explain'
@@ -42,23 +39,9 @@ type Feature =
   | 'tests'       // Test Generator
   | 'refactor';   // Refactor Engine
 
-function AppContent() {
-  const { isAuthenticated, loading: authLoading } = useAuth();
-
-  if (authLoading) {
-    return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return <LandingPage />;
-  }
+export default function App() {
+  const [showLanding, setShowLanding] = useState(true);
   const [activeFeature, setActiveFeature] = useState<Feature>('explain');
-  const [showDashboard, setShowDashboard] = useState(true);
-  const [showWorkflowBuilder, setShowWorkflowBuilder] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState('');
@@ -93,7 +76,7 @@ function AppContent() {
     if (import.meta.env.DEV) {
       return 'http://localhost:8000';
     }
-    return 'https://kodescruxxx.onrender.com';
+    return 'https://kodescruz.onrender.com';
   }, []);
 
   const buildImageUrl = useCallback((filename: string) => {
@@ -290,10 +273,6 @@ function AppContent() {
         );
         setExecutionResult(execResult);
 
-        // Log activity for playground
-        const duration = performance.now() - startTime;
-        apiService.logActivity('playground', playgroundLanguage, true, duration).catch(console.error);
-
         setLoading(false);
         return;
       }
@@ -418,15 +397,8 @@ function AppContent() {
         setResponse(prev => prev + chunk);
       });
 
-      // Log activity for streaming features
-      const duration = performance.now() - startTime;
-      apiService.logActivity(activeFeature, language, true, duration).catch(console.error);
-
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
-      // Log failed activity
-      const duration = performance.now() - (performance.now()); // Approximate
-      apiService.logActivity(activeFeature, language, false, duration).catch(console.error);
     } finally {
       setLoading(false);
     }
@@ -574,11 +546,16 @@ function AppContent() {
     }
   };
 
+  // Show landing page if not dismissed
+  if (showLanding) {
+    return <LandingPage onGetStarted={() => setShowLanding(false)} />;
+  }
+
   if (activeFeature === 'collaborate') {
     return (
       <Layout>
         <div className="flex-1 flex flex-col container mx-auto px-4 py-4 w-full max-w-[1920px]">
-          <Header backendConnected={backendConnected} />
+          <Header backendConnected={backendConnected} onBackToLanding={() => setShowLanding(true)} />
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
             <Sidebar
               features={features}
@@ -603,7 +580,7 @@ function AppContent() {
   return (
     <Layout>
       <div className="flex-1 flex flex-col container mx-auto px-4 py-4 w-full max-w-[1920px]">
-        <Header backendConnected={backendConnected} />
+        <Header backendConnected={backendConnected} onBackToLanding={() => setShowLanding(true)} />
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
           <Sidebar
             features={features}
@@ -613,62 +590,37 @@ function AppContent() {
               setResponse('');
               setError('');
               setExecutionResult(null);
-              setShowDashboard(false);
-              setShowWorkflowBuilder(false);
-            }}
-            onDashboardClick={() => {
-              setShowDashboard(true);
-              setShowWorkflowBuilder(false);
-
-              // Reset active feature visual state if needed, or keep last active
-            }}
-            onWorkflowClick={() => {
-              setShowWorkflowBuilder(true);
-              setShowDashboard(false);
-
             }}
           />
-          <div className="lg:col-span-4">
-            {showDashboard ? (
-              <Dashboard />
-            ) : showWorkflowBuilder ? (
-              <WorkflowBuilder />
-            ) : (
-              <div className="space-y-4 pb-8">
-                <FeatureCard
-                  title={features.find(f => f.id === activeFeature)?.label || ''}
-                  icon={features.find(f => f.id === activeFeature)?.icon}
-                  onSubmit={handleSubmit}
-                  loading={loading}
-                  isPlayground={activeFeature === 'playground'}
-                  backgroundStyle={featureBackgroundStyle}
-                  videoUrl={featureVideos[activeFeature]}
-                  error={error}
-                >
-                  {renderFeatureContent()}
-                </FeatureCard>
 
-                {activeFeature !== 'playground' && (
-                  <ResponseCard
-                    response={response}
-                    loading={loading}
-                    backgroundStyle={featureBackgroundStyle}
-                  />
-                )}
-              </div>
-            )}
+          <div className="lg:col-span-4">
+            <div className="space-y-4 pb-8">
+              <FeatureCard
+                title={features.find(f => f.id === activeFeature)?.label || ''}
+                icon={features.find(f => f.id === activeFeature)?.icon}
+                onSubmit={handleSubmit}
+                loading={loading}
+                isPlayground={activeFeature === 'playground'}
+                backgroundStyle={featureBackgroundStyle}
+                videoUrl={featureVideos[activeFeature]}
+                error={error}
+              >
+                {renderFeatureContent()}
+              </FeatureCard>
+
+              {activeFeature !== 'playground' && (
+                <ResponseCard
+                  response={response}
+                  loading={loading}
+                  backgroundStyle={featureBackgroundStyle}
+                />
+              )}
+            </div>
           </div>
+
         </div>
       </div>
       <Footer />
     </Layout>
-  );
-}
-
-export default function App() {
-  return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
   );
 }

@@ -1,114 +1,86 @@
-# 🚀 Quick Deployment Guide
+# 🚀 Quick Start Deployment Guide
 
-## Your Two URLs
+## TL;DR
 
-After deploying both services, you'll have:
-
-### 1. Backend URL (Render.com)
-**Your Backend**: `https://kodescruxx-backend.onrender.com`
-
-This is already deployed! ✅
-
-**What it's for:**
-- API endpoints (e.g., `/explain`, `/debug`, `/execute_code`)
-- WebSocket connections (`/ws/{room_id}`)
-- Health check: `https://kodescruxxx.onrender.com/health`
-
-### 2. Frontend URL (Vercel)
-**Your Frontend**: `https://your-project-name.vercel.app`
-
-This will be created when you deploy to Vercel.
-
-**What it's for:**
-- Your main application website
-- User-facing interface
-- Where users access the app
+Deploy KodesCruxx in 3 steps:
+1. **Backend** → Render.com (5 min)
+2. **Frontend** → Vercel (2 min)  
+3. **Connect** → Update CORS (1 min)
 
 ---
 
-## 🔄 How to Get Both URLs
+## 📦 Backend (Render.com)
 
-### Step 1: Backend (Already Done! ✅)
-- **URL**: `https://kodescruxx-backend.onrender.com`
-- **Status**: Deployed and running
-- **Location**: Render Dashboard → Your Service → URL
+### Quick Deploy
 
-### Step 2: Frontend (Deploy to Vercel)
+1. **Create Web Service** on [Render](https://dashboard.render.com)
+2. **Connect GitHub repo**
+3. **Configure:**
+   - Build: `pip install -r requirements.txt`
+   - Start: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+4. **Add Secret:**
+   - `GROQ_API_KEY` = Get from [Groq Console](https://console.groq.com/keys)
+5. **Deploy!**
 
-1. **Go to Vercel**: https://vercel.com/dashboard
-2. **Click "Add New..." → "Project"**
-3. **Import your GitHub repository**
-4. **Configure:**
-   - Framework: Vite
-   - Root Directory: `frontend`
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-5. **Add Environment Variables:**
-   ```
-   VITE_API_URL=https://kodescruxx-backend.onrender.com
-   VITE_WS_URL=wss://kodescruxx-backend.onrender.com
-   ```
-6. **Click "Deploy"**
-7. **Wait 1-2 minutes**
-8. **Copy your frontend URL** (shown after deployment)
+### Environment Variables
 
-### Step 3: Connect Them Together
-
-After getting your frontend URL (e.g., `https://my-app.vercel.app`):
-
-1. **Go to Render Dashboard**
-2. **Your Service → Environment**
-3. **Update `ALLOWED_ORIGINS`:**
-   ```
-   https://my-app.vercel.app
-   ```
-4. **Save** (Render will auto-redeploy)
-
----
-
-## ✅ Final Checklist
-
-- [ ] Backend deployed on Render: `https://kodescruxx-backend.onrender.com`
-- [ ] Frontend deployed on Vercel: `https://your-app.vercel.app`
-- [ ] Environment variables set in Vercel:
-  - [ ] `VITE_API_URL` = `https://kodescruxx-backend.onrender.com`
-  - [ ] `VITE_WS_URL` = `wss://kodescruxx-backend.onrender.com`
-- [ ] `ALLOWED_ORIGINS` updated in Render with your Vercel URL
-- [ ] Test both URLs are accessible
-- [ ] Test frontend can connect to backend
-
----
-
-## 🧪 Testing Your Deployment
-
-### Test Backend:
 ```bash
-curl https://kodescruxx-backend.onrender.com/health
+GROQ_API_KEY=gsk_your_key_here
+MODEL_NAME=llama-3.3-70b-versatile
+TEMPERATURE=0.7
+MAX_TOKENS=2000
+ALLOWED_ORIGINS=https://your-app.vercel.app
+DEBUG=False
+LOG_LEVEL=INFO
 ```
-Should return: `{"status": "ok", ...}`
 
-### Test Frontend:
-1. Visit your Vercel URL
-2. Check browser console (F12) for errors
-3. Try using the app features
-
-### Test Connection:
-1. Open frontend in browser
-2. Open DevTools → Network tab
-3. Use any feature (e.g., Code Explanation)
-4. Check that API calls go to `https://kodescruxx-backend.onrender.com`
+📋 Copy your backend URL: `https://your-backend.onrender.com`
 
 ---
 
-## 📝 Summary
+## 🎨 Frontend (Vercel)
 
-**Backend URL**: `https://kodescruxx-backend.onrender.com` ✅ (Already deployed)
+### Quick Deploy
 
-**Frontend URL**: `https://your-project-name.vercel.app` (Deploy to get this)
+1. **Import Project** on [Vercel](https://vercel.com/new)
+2. **Set Root Directory:** `frontend`
+3. **Add Environment Variables:**
+   ```bash
+   VITE_API_URL=https://your-backend.onrender.com
+   VITE_WS_URL=wss://your-backend.onrender.com
+   VITE_ASSET_BASE_URL=https://your-backend.onrender.com
+   ```
+4. **Deploy!**
 
-Once you have both:
-1. Set environment variables in Vercel
-2. Update CORS in Render
-3. Test the connection
-4. You're live! 🎉
+📋 Copy your frontend URL: `https://your-app.vercel.app`
 
+---
+
+## 🔗 Final Step
+
+**Update Backend CORS:**
+1. Go to Render → Environment
+2. Set `ALLOWED_ORIGINS` = `https://your-app.vercel.app`
+3. Save (auto-redeploys)
+
+---
+
+## ✅ Test It
+
+- **Backend Health:** `https://your-backend.onrender.com/health`
+- **Frontend:** `https://your-app.vercel.app`
+- **API Docs:** `https://your-backend.onrender.com/docs`
+
+---
+
+## 🆘 Issues?
+
+- **CORS Error:** Update `ALLOWED_ORIGINS` in Render
+- **Backend 404:** Check build logs in Render
+- **Frontend Blank:** Check environment variables in Vercel
+
+See full guide in [DEPLOYMENT.md](./DEPLOYMENT.md)
+
+---
+
+**Done! 🎉**

@@ -1,5 +1,5 @@
 """
-Configuration module for KodesCRUxxx
+Configuration module for KodesCruz
 Handles environment variables and app settings
 """
 
@@ -14,11 +14,11 @@ load_dotenv()
 class Settings(BaseSettings):
     """Application settings"""
     
-    # OpenAI Configuration
-    OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
-    MODEL_NAME: str = os.getenv("MODEL_NAME", "gpt-4o-mini")
+    # Groq Configuration
+    GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
+    MODEL_NAME: str = os.getenv("MODEL_NAME", "llama-3.3-70b-versatile")
     TEMPERATURE: float = float(os.getenv("TEMPERATURE", "0.7"))
-    MAX_TOKENS: int = int(os.getenv("MAX_TOKENS", "1000"))
+    MAX_TOKENS: int = int(os.getenv("MAX_TOKENS", "2000"))
     
     # API Configuration
     API_URL: str = os.getenv("API_URL", "http://127.0.0.1:8000")
@@ -39,6 +39,6 @@ class Settings(BaseSettings):
 # Initialize settings
 settings = Settings()
 
-# Validate OpenAI API key
-if not settings.OPENAI_API_KEY:
-    print("⚠️  WARNING: OPENAI_API_KEY not set in environment variables")
+# Validate Groq API key
+if not settings.GROQ_API_KEY:
+    print("⚠️  WARNING: GROQ_API_KEY not set in environment variables")

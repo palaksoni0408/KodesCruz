@@ -22,9 +22,9 @@ Use this checklist to ensure a smooth deployment to Vercel and Render.
   - [ ] Start command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
   - [ ] Environment: Python 3
 - [ ] Add environment variables:
-  - [ ] `OPENAI_API_KEY` (required)
+  - [ ] `GROQ_API_KEY` (required - get from https://console.groq.com/keys)
   - [ ] `SECRET_KEY` (auto-generate or set)
-  - [ ] `MODEL_NAME=gpt-4o-mini`
+  - [ ] `MODEL_NAME=llama-3.3-70b-versatile`
   - [ ] `DATABASE_URL=sqlite:///./kodescru.db`
   - [ ] `ALLOWED_ORIGINS=https://your-frontend.vercel.app` (update after frontend deployment)
   - [ ] `DEBUG=False`
